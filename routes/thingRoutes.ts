@@ -5,6 +5,7 @@ import {
   getThingById,
   purchaseThing,
   removeThingById,
+  getPaginatedThings,
 } from "../controllers/thingsController";
 import { validateToken } from "../middleware/validateToken";
 
@@ -14,6 +15,8 @@ router.post("/addThings", addThings);
 router.post("/purchase", purchaseThing);
 
 router.get("/getAllThings", getAllThings);
+router.get("/getPaginatedThings", getPaginatedThings);
+
 router.get("/getThingById", getThingById);
 router.delete("/removeThingById", removeThingById);
 

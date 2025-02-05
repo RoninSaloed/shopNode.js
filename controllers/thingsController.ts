@@ -9,6 +9,19 @@ export const getAllThings = asyncHandler(async (req, res) => {
   res.status(200).send({ message: "All things", things: things });
 });
 
+export const getPaginatedThings = asyncHandler(async (req, res) => {
+  const { page, limit } = req.query;
+
+  const start = (Number(page) - 1) * Number(limit);
+
+  const end = Number(page) * Number(limit);
+  const things = await prisma.thing.findMany({
+    skip: start,
+    take: end,
+  });
+  res.status(200).send({ message: "All things", things: things });
+});
+
 export const getThingById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -106,13 +119,12 @@ export const removeThingById = asyncHandler(async (req, res) => {
 });
 
 export const addThings = asyncHandler(async (req, res) => {
-  const { id: userId, thingID, title, price } = req.params;
+  const { id: userId, title, price } = req.params;
   const isAdmin = await prisma.admin.findUnique({ where: { id: userId } });
 
-  if (isAdmin && thingID && title) {
+  if (isAdmin && title) {
     const thing = await prisma.thing.create({
       data: {
-        id: thingID,
         title,
         price,
       },
