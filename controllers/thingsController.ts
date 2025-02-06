@@ -17,7 +17,7 @@ export const getPaginatedThings = asyncHandler(async (req, res) => {
   const end = Number(page) * Number(limit);
   const things = await prisma.thing.findMany({
     skip: start,
-    take: end,
+    take: Number(limit),
   });
   res.status(200).send({ message: "All things", things: things });
 });
