@@ -22,6 +22,19 @@ export const getPaginatedThings = asyncHandler(async (req, res) => {
   res.status(200).send({ message: "All things", things: things });
 });
 
+export const getSearchThings = asyncHandler(async (req, res) => {
+  const { search } = req.query;
+  const things = await prisma.thing.findMany({
+    where: {
+      title: {
+        contains: String(search),
+        mode: "insensitive",
+      },
+    },
+  });
+  res.status(200).send({ things: things });
+});
+
 export const getThingById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

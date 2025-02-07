@@ -6,6 +6,7 @@ import {
   purchaseThing,
   removeThingById,
   getPaginatedThings,
+  getSearchThings,
 } from "../controllers/thingsController";
 import { validateToken } from "../middleware/validateToken";
 
@@ -16,6 +17,7 @@ router.post("/purchase", purchaseThing);
 
 router.get("/getAllThings", getAllThings);
 router.get("/getPaginatedThings", getPaginatedThings);
+router.get("/getSearchThings", getSearchThings);
 
 router.get("/getThingById", getThingById);
 router.delete("/removeThingById", removeThingById);
